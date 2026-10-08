@@ -30,7 +30,7 @@ function HomeSidebar() {
             type="button"
             onClick={() => navigate("/")}
             className={`
-              flex w-full items-center gap-3
+              flex w-full cursor-pointer items-center gap-3
               rounded-lg
               px-4 py-3
               text-left
@@ -51,7 +51,7 @@ function HomeSidebar() {
             type="button"
             onClick={() => navigate("/profile")}
             className={`
-              flex w-full items-center gap-3
+              flex w-full cursor-pointer items-center gap-3
               rounded-lg
               px-4 py-3
               text-left
@@ -73,7 +73,7 @@ function HomeSidebar() {
           type="button"
           onClick={handleLogout}
           className="
-            mt-4 flex w-full items-center gap-3
+            mt-4 flex cursor-pointer w-full items-center gap-3
             rounded-lg
             px-4 py-3
             text-left text-gray-500
