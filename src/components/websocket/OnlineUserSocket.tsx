@@ -13,13 +13,15 @@ function OnlineUserSocket() {
       return;
     }
 
+    const wsBaseUrl = import.meta.env.PROD
+      ? "wss://pposong-api.duckdns.org"
+      : "ws://localhost:8080";
+
     const socket = new WebSocket(
-      `ws://localhost:8080/ws/online?token=${encodeURIComponent(token)}`,
+      `${wsBaseUrl}/ws/online?token=${encodeURIComponent(token)}`,
     );
 
-    socket.onopen = () => {
-      console.log("WebSocket connected");
-    };
+    socket.onopen = () => {};
 
     socket.onmessage = (event) => {
       const users = JSON.parse(event.data);
