@@ -13,7 +13,7 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const onlineUsers = useOnlineUserStore((state) => state.users);
 
   // 현재 페이지 확인
-  const isHome = location.pathname === "/" || location.pathname === "/home";
+  const isHome = location.pathname === "/";
 
   const isProfile =
     location.pathname === "/profile" ||
@@ -88,7 +88,7 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           {/* 홈 */}
           <button
             type="button"
-            onClick={() => handleNavigate("/home")}
+            onClick={() => handleNavigate("/")}
             aria-current={isHome ? "page" : undefined}
             className={`
               flex w-full items-center gap-3
