@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useOnlineUserStore } from "../../stores/onlineUserStore";
 
 interface MobileMenuProps {
@@ -8,13 +8,21 @@ interface MobileMenuProps {
 
 function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const onlineUsers = useOnlineUserStore((state) => state.users);
+
+  // 현재 페이지 확인
+  const isHome = location.pathname === "/" || location.pathname === "/home";
+
+  const isProfile =
+    location.pathname === "/profile" ||
+    location.pathname.startsWith("/profile/");
 
   const handleNavigate = (path: string) => {
     onClose();
     navigate(path);
   };
-
-  const onlineUsers = useOnlineUserStore((state) => state.users);
 
   const handleLogout = () => {
     const confirmed = window.confirm("로그아웃 하시겠습니까?");
@@ -40,10 +48,7 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         type="button"
         aria-label="메뉴 닫기"
         onClick={onClose}
-        className="
-          absolute inset-0
-          bg-black/40
-        "
+        className="absolute inset-0 bg-black/40"
       />
 
       {/* 메뉴 */}
@@ -58,20 +63,8 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         "
       >
         {/* 상단 */}
-        <div
-          className="
-            flex items-center
-            justify-between
-          "
-        >
-          <h2
-            className="
-              text-xl font-bold
-              text-[#8B7CF6]
-            "
-          >
-            뽀송
-          </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold text-[#8B7CF6]">뽀송</h2>
 
           <button
             type="button"
@@ -95,14 +88,20 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           {/* 홈 */}
           <button
             type="button"
-            onClick={() => handleNavigate("/")}
-            className="
+            onClick={() => handleNavigate("/home")}
+            aria-current={isHome ? "page" : undefined}
+            className={`
               flex w-full items-center gap-3
-              rounded-lg bg-white
+              rounded-lg
               px-4 py-3
-              text-left font-semibold
-              text-gray-900
-            "
+              text-left
+              transition
+              ${
+                isHome
+                  ? "bg-white font-semibold text-gray-900"
+                  : "text-gray-700 hover:bg-white"
+              }
+            `}
           >
             <i className="bi bi-house-door text-lg" />
             <span>홈</span>
@@ -112,14 +111,19 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           <button
             type="button"
             onClick={() => handleNavigate("/profile")}
-            className="
+            aria-current={isProfile ? "page" : undefined}
+            className={`
               flex w-full items-center gap-3
               rounded-lg
               px-4 py-3
-              text-left text-gray-700
+              text-left
               transition
-              hover:bg-white
-            "
+              ${
+                isProfile
+                  ? "bg-white font-semibold text-gray-900"
+                  : "text-gray-700 hover:bg-white"
+              }
+            `}
           >
             <i className="bi bi-person text-lg" />
             <span>프로필</span>
@@ -139,11 +143,7 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               hover:text-red-500
             "
           >
-            <i
-              className="
-                bi bi-box-arrow-right text-lg
-              "
-            />
+            <i className="bi bi-box-arrow-right text-lg" />
             <span>로그아웃</span>
           </button>
         </nav>
@@ -152,19 +152,19 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <div className="my-6 border-t border-gray-200" />
 
         {/* 실시간 접속자 */}
-        {/* 실시간 접속자 */}
         <div>
           <div className="flex items-center gap-2">
             <h3 className="font-semibold text-gray-900">실시간 접속자</h3>
 
             <span
               className="
-        flex h-5 min-w-5
-        items-center justify-center
-        rounded-full bg-[#8B7CF6]
-        px-1.5 text-xs
-        font-semibold text-white
-      "
+                flex h-5 min-w-5
+                items-center justify-center
+                rounded-full
+                bg-[#8B7CF6]
+                px-1.5
+                text-xs font-semibold text-white
+              "
             >
               {onlineUsers.length}
             </span>
@@ -185,43 +185,43 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         src={user.profileImageUrl}
                         alt={user.username}
                         className="
-                  h-9 w-9
-                  rounded-full
-                  object-cover
-                "
+                          h-9 w-9
+                          rounded-full
+                          object-cover
+                        "
                       />
                     ) : (
                       <div
                         className="
-                  flex h-9 w-9
-                  items-center justify-center
-                  rounded-full
-                  bg-white
-                "
+                          flex h-9 w-9
+                          items-center justify-center
+                          rounded-full
+                          bg-white
+                        "
                       >
                         <i className="bi bi-person-fill text-gray-400" />
                       </div>
                     )}
 
-                    {/* 접속 중 초록색 표시 */}
+                    {/* 접속 중 표시 */}
                     <span
                       className="
-                absolute bottom-0 right-0
-                h-3 w-3
-                rounded-full
-                border-2 border-[#F5F4FF]
-                bg-green-500
-              "
+                        absolute bottom-0 right-0
+                        h-3 w-3
+                        rounded-full
+                        border-2 border-[#F5F4FF]
+                        bg-green-500
+                      "
                     />
                   </div>
 
                   {/* 사용자 이름 */}
                   <span
                     className="
-              min-w-0 truncate
-              text-sm font-medium
-              text-gray-700
-            "
+                      min-w-0 truncate
+                      text-sm font-medium
+                      text-gray-700
+                    "
                   >
                     {user.username}
                   </span>
