@@ -77,7 +77,7 @@ function PostCard({
     }
   };
 
-  console.log("post");
+  console.log(post);
 
   return (
     <article
