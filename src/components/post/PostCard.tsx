@@ -34,6 +34,17 @@ function PostCard({
 
   const isMyPost = currentUserId === post.userId;
 
+  const formatDateTime = (dateString: string) => {
+    const [date, time] = dateString.split("T");
+
+    if (!date || !time) return dateString;
+
+    const [year, month, day] = date.split("-");
+    const [hour, minute] = time.split(":");
+
+    return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
+  };
+
   const handlePostClick = () => {
     // 홈에서 현재 보고 있던 스크롤 위치 저장
     sessionStorage.setItem("homeScrollY", window.scrollY.toString());
@@ -76,8 +87,6 @@ function PostCard({
       setLikeLoading(false);
     }
   };
-
-  console.log(post);
 
   return (
     <article
@@ -125,7 +134,9 @@ function PostCard({
           <div>
             <p className="font-semibold text-gray-900">{post.username}</p>
 
-            <p className="text-xs text-gray-400">{post.createdAt}</p>
+            <p className="text-xs text-gray-400">
+              {formatDateTime(post.createdAt)}
+            </p>
           </div>
         </div>
 
