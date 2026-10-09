@@ -26,6 +26,8 @@ function PostCard({
   onReport,
   onLikeChanged,
 }: PostCardProps) {
+  console.log(post);
+
   const navigate = useNavigate();
 
   const [liked, setLiked] = useState(post.liked);
@@ -123,7 +125,7 @@ function PostCard({
           <div>
             <p className="font-semibold text-gray-900">{post.username}</p>
 
-            <p className="text-xs text-gray-400">{}</p>
+            <p className="text-xs text-gray-400">{post.createdAt}</p>
           </div>
         </div>
 
