@@ -26,7 +26,7 @@ function PostCard({
   onReport,
   onLikeChanged,
 }: PostCardProps) {
-  console.log(post);
+  console.log("post");
 
   const navigate = useNavigate();
 
