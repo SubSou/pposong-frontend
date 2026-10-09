@@ -123,9 +123,7 @@ function PostCard({
           <div>
             <p className="font-semibold text-gray-900">{post.username}</p>
 
-            <p className="text-xs text-gray-400">
-              {new Date(post.createdAt).toLocaleString()}
-            </p>
+            <p className="text-xs text-gray-400">{post.createdAt}</p>
           </div>
         </div>
 
