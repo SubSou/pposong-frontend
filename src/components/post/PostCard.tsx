@@ -26,8 +26,6 @@ function PostCard({
   onReport,
   onLikeChanged,
 }: PostCardProps) {
-  console.log("post");
-
   const navigate = useNavigate();
 
   const [liked, setLiked] = useState(post.liked);
@@ -78,6 +76,8 @@ function PostCard({
       setLikeLoading(false);
     }
   };
+
+  console.log("post");
 
   return (
     <article
