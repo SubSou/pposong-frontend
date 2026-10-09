@@ -22,6 +22,8 @@ import CommentMenu from "../../components/comment/CommentMenu";
 
 import PostImageCarousel from "../../components/post/PostImageCarousel";
 
+import { formatDateTime } from "../../utils/date";
+
 function PostDetailPage() {
   const navigate = useNavigate();
   const { postId } = useParams();
@@ -536,7 +538,7 @@ function PostDetailPage() {
                   </p>
 
                   <p className="mt-0.5 text-xs text-gray-400">
-                    {new Date(post.createdAt).toLocaleString()}
+                    {formatDateTime(post.createdAt)}
                   </p>
                 </div>
               </div>

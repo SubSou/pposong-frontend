@@ -9,6 +9,8 @@ import PostMenu from "./PostMenu";
 
 import PostImageCarousel from "./PostImageCarousel";
 
+import { formatDateTime } from "../../utils/date";
+
 interface PostCardProps {
   post: PostResponse;
   currentUserId?: number;
@@ -33,17 +35,6 @@ function PostCard({
   const [likeLoading, setLikeLoading] = useState(false);
 
   const isMyPost = currentUserId === post.userId;
-
-  const formatDateTime = (dateString: string) => {
-    const [date, time] = dateString.split("T");
-
-    if (!date || !time) return dateString;
-
-    const [year, month, day] = date.split("-");
-    const [hour, minute] = time.split(":");
-
-    return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
-  };
 
   const handlePostClick = () => {
     // 홈에서 현재 보고 있던 스크롤 위치 저장
