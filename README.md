@@ -1,4 +1,4 @@
-#  뽀송 (Pposong)
+#  뽀송 (Pposong) Frontend
 
 ### 일상을 기록하고 서로의 이야기를 공유하는 SNS 웹 서비스
 
